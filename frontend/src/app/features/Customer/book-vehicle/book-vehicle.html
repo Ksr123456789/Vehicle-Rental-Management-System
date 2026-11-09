@@ -1,0 +1,290 @@
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+  <div class="bg-white rounded-2xl shadow-xl w-full max-w-3xl p-8 max-h-[90vh] overflow-y-auto">
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-2xl font-bold">Book Vehicle</h2>
+
+      <button
+        (click)="closeModal.emit()"
+        type="button"
+        class="text-2xl font-bold hover:text-red-500"
+      >
+        ×
+      </button>
+    </div>
+
+    <form [formGroup]="bookVehicleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-6">
+      <div>
+        <div class="flex gap-5">
+          <div class="flex-1">
+            <label class="block mb-2 font-medium">
+              Pickup Date<span class="text-red-500">*</span>
+            </label>
+
+            <input
+              formControlName="pickupDate"
+              type="date"
+              [min]="minDateString"
+              class="w-full border rounded-lg px-4 py-3"
+            />
+            @if (
+              bookVehicleForm.get('pickupDate')?.touched &&
+              bookVehicleForm.get('pickupDate')?.hasError('required')
+            ) {
+              <p class="text-red-500 text-sm mt-1">Pickup Date is required</p>
+            } @else if (
+              bookVehicleForm.get('pickupDate')?.touched &&
+              bookVehicleForm.hasError('pickupInvalid')
+            ) {
+              <p class="text-red-500 text-sm mt-1">
+                Pickup DateTime cannot be equal to or Greater than Return DateTime
+              </p>
+            }
+          </div>
+
+          <div class="flex-1">
+            <label class="block mb-2 font-medium">
+              Pickup Time<span class="text-red-500">*</span>
+            </label>
+
+            <input
+              formControlName="pickupTime"
+              type="time"
+              class="w-full border rounded-lg px-4 py-3"
+            />
+            @if (
+              bookVehicleForm.get('pickupTime')?.touched &&
+              bookVehicleForm.get('pickupTime')?.invalid
+            ) {
+              @if (bookVehicleForm.get('pickupTime')?.hasError('required')) {
+                <p class="text-red-500 text-sm mt-1">Pickup Time is required</p>
+              }
+            }
+          </div>
+        </div>
+        <div class="flex gap-5">
+          <div class="flex-1">
+            <label class="block mb-2 font-medium">
+              Return Date<span class="text-red-500">*</span>
+            </label>
+
+            <input
+              formControlName="returnDate"
+              type="date"
+              [min]="minDateString"
+              class="w-full border rounded-lg px-4 py-3"
+            />
+            @if (
+              bookVehicleForm.get('returnDate')?.touched &&
+              bookVehicleForm.get('returnDate')?.invalid
+            ) {
+              @if (bookVehicleForm.get('returnDate')?.hasError('required')) {
+                <p class="text-red-500 text-sm mt-1">Return Date is required</p>
+              }
+            }
+          </div>
+
+          <div class="flex-1">
+            <label class="block mb-2 font-medium">
+              Return Time<span class="text-red-500">*</span>
+            </label>
+
+            <input
+              formControlName="returnTime"
+              type="time"
+              class="w-full border rounded-lg px-4 py-3"
+            />
+            @if (
+              bookVehicleForm.get('returnTime')?.touched &&
+              bookVehicleForm.get('returnTime')?.invalid
+            ) {
+              @if (bookVehicleForm.get('returnTime')?.hasError('required')) {
+                <p class="text-red-500 text-sm mt-1">Return Time is required</p>
+              }
+            }
+          </div>
+        </div>
+        <div class="flex gap-5">
+          <div class="flex-1">
+            <label class="block mb-2 font-medium">
+              Pickup Location<span class="text-red-500">*</span>
+            </label>
+
+            <input
+              formControlName="pickupLocation"
+              type="text"
+              class="w-full border rounded-lg px-4 py-3"
+            />
+            @if (
+              bookVehicleForm.get('pickupLocation')?.touched &&
+              bookVehicleForm.get('pickupLocation')?.invalid
+            ) {
+              @if (bookVehicleForm.get('pickupLocation')?.hasError('required')) {
+                <p class="text-red-500 text-sm mt-1">Pickup Location is required</p>
+              }
+            }
+          </div>
+
+          <div class="flex-1">
+            <label class="block mb-2 font-medium">
+              Return Location<span class="text-red-500">*</span>
+            </label>
+
+            <input
+              formControlName="returnLocation"
+              type="text"
+              class="w-full border rounded-lg px-4 py-3"
+            />
+            @if (
+              bookVehicleForm.get('returnLocation')?.touched &&
+              bookVehicleForm.get('returnLocation')?.invalid
+            ) {
+              @if (bookVehicleForm.get('returnLocation')?.hasError('required')) {
+                <p class="text-red-500 text-sm mt-1">Return Location is required</p>
+              }
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="border-t pt-4">
+        <div class="grid grid-cols-2 gap-5">
+          <div>
+            <label class="block mb-2 font-medium text-gray-700"> Make & Model </label>
+
+            <input
+              type="text"
+              [value]="vehicleInput()?.makeAndModel"
+              readonly
+              class="w-full border border-gray-200 bg-gray-100 rounded-lg px-4 py-3 text-gray-600 cursor-not-allowed"
+            />
+          </div>
+
+          <div>
+            <label class="block mb-2 font-medium text-gray-700"> Seating Capacity </label>
+
+            <input
+              type="text"
+              [value]="vehicleInput()?.seatingCapacity"
+              readonly
+              class="w-full border border-gray-200 bg-gray-100 rounded-lg px-4 py-3 text-gray-600 cursor-not-allowed"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="grid grid-cols-2 gap-5">
+          <div>
+            <label class="block mb-2 font-medium text-gray-700"> Company Name </label>
+
+            <input
+              type="text"
+              [value]="vehicleInput()?.companyName"
+              readonly
+              class="w-full border border-gray-200 bg-gray-100 rounded-lg px-4 py-3 text-gray-600 cursor-not-allowed"
+            />
+          </div>
+
+          <div>
+            <label class="block mb-2 font-medium text-gray-700"> Company Phone </label>
+
+            <input
+              type="text"
+              [value]="vehicleInput()?.companyPhone"
+              readonly
+              class="w-full border border-gray-200 bg-gray-100 rounded-lg px-4 py-3 text-gray-600 cursor-not-allowed"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="">
+        <div class="grid grid-cols-2 gap-5">
+          <div>
+            <label class="block mb-2 font-medium text-gray-700"> Driver Email </label>
+
+            <input
+              type="text"
+              [value]="authService.getEmail()"
+              readonly
+              class="w-full border border-gray-200 bg-gray-100 rounded-lg px-4 py-3 text-gray-600 cursor-not-allowed"
+            />
+          </div>
+
+          <div>
+            <label class="block mb-2 font-medium text-gray-700"> LICENSE NUMBER </label>
+
+            <input
+              type="text"
+              [value]="authService.getDrivingLicense()"
+              readonly
+              class="w-full border border-gray-200 bg-gray-100 rounded-lg px-4 py-3 text-gray-600 cursor-not-allowed"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="border-t pt-4">
+        <label class="block text-sm font-semibold text-gray-700 mb-3">Addtional Services </label>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          @for (service of extraServices(); track service.id) {
+            <label
+              class="flex items-start gap-3 border border-gray-200 rounded-xl p-4 cursor-pointer hover:bg-gray-50"
+            >
+              <input
+                type="checkbox"
+                class="mt-1 w-4 h-4"
+                [checked]="bookVehicleForm.controls.extraServiceIds.value?.includes(service.id)"
+                (change)="toggleExtraService(service.id)"
+                --
+              />
+
+              <div class="flex-1">
+                <div class="flex justify-between">
+                  <p class="font-medium text-gray-800">
+                    {{ service.name }}
+                  </p>
+
+                  <p class="font-semibold text-gray-700">₹{{ service.price }}</p>
+                </div>
+
+                <p class="text-sm text-gray-500">
+                  {{ service.description }}
+                </p>
+              </div>
+            </label>
+          }
+        </div>
+      </div>
+
+      <label class="flex items-center gap-3 cursor-pointer hover:bg-gray-50">
+        <input
+          formControlName="insurance"
+          type="checkbox"
+          value="insurance"
+          class="w-4 h-4 text-blue-600 rounded"
+        />
+
+        <div>
+          <p class="font-medium text-gray-800">Insurance</p>
+
+          <p class="text-sm text-gray-500">Get your insurance</p>
+        </div>
+      </label>
+
+      <div class="flex justify-end gap-3">
+        <button
+          type="button"
+          class="px-5 py-2 border border-gray-300 rounded-lg hover:bg-gray-100"
+          (click)="closeModal.emit()"
+        >
+          Cancel
+        </button>
+
+        <button type="submit" class="px-5 py-2 bg-blue-700 text-white rounded-lg hover:bg-blue-800">
+          Save
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

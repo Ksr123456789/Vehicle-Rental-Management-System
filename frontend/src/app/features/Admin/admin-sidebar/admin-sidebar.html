@@ -1,0 +1,56 @@
+<aside class="w-64 h-screen bg-gray-800 text-white flex flex-col fixed left-0 top-0">
+  <!-- Logo -->
+  <div class="p-6 border-b border-gray-800">
+    <div class="flex items-center gap-3">
+      <div
+        class="w-12 h-12 rounded-xl bg-blue-600 flex items-center justify-center font-bold text-lg"
+      >
+        RVS
+      </div>
+
+      <div>
+        <h1 class="text-lg font-bold">Admin</h1>
+        <p class="text-sm text-gray-400">Admin Portal</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+
+  <nav class="flex-1 p-4 space-y-2">
+    <!-- Rental Company -->
+    <a
+      routerLink="/admin/rentalCompany"
+      routerLinkActive="bg-blue-600 text-white"
+      class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-gray-800 hover:text-white transition-all duration-200"
+    >
+      <span class="font-medium">Rental Company</span>
+    </a>
+
+    <!-- vehicle -->
+    <a
+      routerLink="/admin/vehicle"
+      routerLinkActive="bg-blue-600 text-white"
+      class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-gray-800 hover:text-white transition-all duration-200"
+    >
+      <span class="font-medium">Vehicle </span>
+    </a>
+
+    <!-- bookings -->
+    <a
+      routerLink="/admin/bookings"
+      routerLinkActive="bg-blue-600 text-white"
+      class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-gray-800 hover:text-white transition-all duration-200"
+    >
+      <span class="font-medium">Bookings</span>
+    </a>
+  </nav>
+
+  <!-- logout button -->
+
+  <div class="p-4 border-t border-gray-800">
+    <button (click)="logoutAdmin()" class="text-center flex gap-3 p-3 rounded-xl bg-gray-900">
+      Logout
+    </button>
+  </div>
+</aside>

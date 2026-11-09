@@ -1,0 +1,175 @@
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+  <div class="bg-white rounded-2xl shadow-xl w-full max-w-3xl p-8">
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-2xl font-bold">Add</h2>
+
+      <button (click)="onClose()" type="button" class="text-2xl font-bold hover:text-red-500">
+        ×
+      </button>
+    </div>
+
+    <form [formGroup]="addCompanyForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-5">
+      <div class="flex gap-5">
+        <div class="flex-1">
+          <label class="block mb-2 font-medium">
+            Company Name<span class="text-red-500">*</span>
+          </label>
+
+          <input
+            formControlName="companyName"
+            type="text"
+            class="w-full border rounded-lg px-4 py-3"
+          />
+          @if (
+            addCompanyForm.get('companyName')?.touched && addCompanyForm.get('companyName')?.invalid
+          ) {
+            @if (addCompanyForm.get('companyName')?.hasError('required')) {
+              <p class="text-red-500 text-sm mt-1">FullName is required</p>
+            } @else if (addCompanyForm.get('companyName')?.hasError('maxlength')) {
+              <p class="text-red-500 text-sm mt-1">FullName cannot exceed 150 characters</p>
+            }
+          }
+        </div>
+
+        <div class="flex-1">
+          <label class="block mb-2 font-medium">
+            Owner Name<span class="text-red-500">*</span>
+          </label>
+
+          <input formControlName="ownerName" class="w-full border rounded-lg px-4 py-3" />
+          @if (
+            addCompanyForm.get('ownerName')?.touched && addCompanyForm.get('ownerName')?.invalid
+          ) {
+            @if (addCompanyForm.get('ownerName')?.hasError('required')) {
+              <p class="text-red-500 text-sm mt-1">Owner Name is required</p>
+            } @else if (addCompanyForm.get('ownerName')?.hasError('maxlength')) {
+              <p class="text-red-500 text-sm mt-1">Owner Name cannot exceed 100 characters</p>
+            }
+          }
+        </div>
+      </div>
+
+      <div class="flex gap-5">
+        <div class="flex-1">
+          <label class="block mb-2 font-medium">
+            Company Type<span class="text-red-500">*</span>
+          </label>
+
+          <select formControlName="companyType" class="w-full border rounded-lg px-4 py-3">
+            <option value="" disabled>Select Company Type</option>
+
+            <option value="0">Budget</option>
+            <option value="1">Economy</option>
+            <option value="2">Premium</option>
+            <option value="3">Luxury</option>
+          </select>
+          @if (
+            addCompanyForm.get('companyType')?.touched && addCompanyForm.get('companyType')?.invalid
+          ) {
+            @if (addCompanyForm.get('companyType')?.hasError('required')) {
+              <p class="text-red-500 text-sm mt-1">Company Type is required</p>
+            }
+          }
+        </div>
+
+        <div class="flex-1">
+          <label class="block mb-2 font-medium">
+            Company Status<span class="text-red-500">*</span>
+          </label>
+
+          <select formControlName="status" class="w-full border rounded-lg px-4 py-3">
+            <option value="" disabled>Select Company Status</option>
+
+            <option value="0">Active</option>
+            <option value="1">InActive</option>
+          </select>
+          @if (addCompanyForm.get('status')?.touched && addCompanyForm.get('status')?.invalid) {
+            @if (addCompanyForm.get('status')?.hasError('required')) {
+              <p class="text-red-500 text-sm mt-1">Company Status is required</p>
+            }
+          }
+        </div>
+      </div>
+
+      <div class="flex gap-5">
+        <div class="flex-1">
+          <label class="block mb-2 font-medium">
+            License Number<span class="text-red-500">*</span>
+          </label>
+
+          <input
+            formControlName="licenseNumber"
+            type="text"
+            class="w-full border rounded-lg px-4 py-3"
+          />
+          @if (
+            addCompanyForm.get('licenseNumber')?.touched &&
+            addCompanyForm.get('licenseNumber')?.invalid
+          ) {
+            @if (addCompanyForm.get('licenseNumber')?.hasError('required')) {
+              <p class="text-red-500 text-sm mt-1">License Number is Required</p>
+            }
+          }
+        </div>
+        <div class="flex-1">
+          <label class="block mb-2 font-medium">
+            Phone Number<span class="text-red-500">*</span>
+          </label>
+
+          <input
+            formControlName="phoneNumber"
+            type="text"
+            class="w-full border rounded-lg px-4 py-3"
+          />
+          @if (
+            addCompanyForm.get('phoneNumber')?.touched && addCompanyForm.get('phoneNumber')?.invalid
+          ) {
+            @if (addCompanyForm.get('phoneNumber')?.hasError('required')) {
+              <p class="text-red-500 text-sm mt-1">Phone Number is required</p>
+            } @else if (addCompanyForm.get('phoneNumber')?.hasError('pattern')) {
+              <p class="text-red-500 text-sm mt-1">Please enter a valid 10 digit phone number</p>
+            }
+          }
+        </div>
+      </div>
+
+      <div class="flex gap-5">
+        <div class="flex-1">
+          <label class="block mb-2 font-medium">
+            Headquarters Location<span class="text-red-500">*</span>
+          </label>
+
+          <textarea
+            formControlName="headquartersLocation"
+            type="text"
+            class="w-full border rounded-lg px-4 py-3"
+          ></textarea>
+          @if (
+            addCompanyForm.get('headquartersLocation')?.touched &&
+            addCompanyForm.get('headquartersLocation')?.invalid
+          ) {
+            @if (addCompanyForm.get('headquartersLocation')?.hasError('required')) {
+              <p class="text-red-500 text-sm mt-1">headquarters Location is required</p>
+            } @else if (addCompanyForm.get('headquartersLocation')?.hasError('maxlength')) {
+              <p class="text-red-500 text-sm mt-1">headquarters Location cannot exceed 200 char</p>
+            }
+          }
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-3 pt-3">
+        <button
+          (click)="onClose()"
+          type="button"
+          class="px-5 py-2 border border-gray-300 rounded-lg hover:bg-gray-100"
+        >
+          Cancel
+        </button>
+
+        <button type="submit" class="px-5 py-2 bg-blue-700 text-white rounded-lg hover:bg-blue-800">
+          Save
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

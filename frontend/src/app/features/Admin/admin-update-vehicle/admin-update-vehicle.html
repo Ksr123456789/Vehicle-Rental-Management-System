@@ -1,0 +1,254 @@
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+  <div class="bg-white rounded-2xl shadow-xl w-full max-w-3xl p-8">
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-2xl font-bold">Edit Vehicle</h2>
+
+      <button (click)="onClose()" type="button" class="text-2xl font-bold hover:text-red-500">
+        ×
+      </button>
+    </div>
+
+    <form [formGroup]="updateVehicleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-5">
+      <div class="flex gap-5">
+        <div class="flex-1">
+          <label class="block mb-2 font-medium">
+            Make and Model<span class="text-red-500">*</span>
+          </label>
+
+          <input
+            formControlName="makeAndModel"
+            type="text"
+            class="w-full border rounded-lg px-4 py-3"
+          />
+          @if (
+            updateVehicleForm.get('makeAndModel')?.touched &&
+            updateVehicleForm.get('makeAndModel')?.invalid
+          ) {
+            @if (updateVehicleForm.get('makeAndModel')?.hasError('required')) {
+              <p class="text-red-500 text-sm mt-1">Make and Model is required</p>
+            } @else if (updateVehicleForm.get('makeAndModel')?.hasError('maxlength')) {
+              <p class="text-red-500 text-sm mt-1">Make&Model cannot exceed 100 characters</p>
+            }
+          }
+        </div>
+
+        <div class="flex-1">
+          <label class="block mb-2 font-medium">
+            seating Capacity<span class="text-red-500">*</span></label
+          >
+
+          <input formControlName="seatingCapacity" class="w-full border rounded-lg px-4 py-3" />
+
+          @if (
+            updateVehicleForm.get('seatingCapacity')?.touched &&
+            updateVehicleForm.get('seatingCapacity')?.invalid
+          ) {
+            @if (updateVehicleForm.get('seatingCapacity')?.hasError('required')) {
+              <p class="text-red-500 text-sm mt-1">seating capacity is required</p>
+            } @else if (updateVehicleForm.get('seatingCapacity')?.hasError('max')) {
+              <p class="text-red-500 text-sm mt-1">seating capacity cannot exceed 20</p>
+            } @else if (updateVehicleForm.get('seatingCapacity')?.hasError('min')) {
+              <p class="text-red-500 text-sm mt-1">seating capacity cannot be less than 1</p>
+            } @else if (updateVehicleForm.get('seatingCapacity')?.hasError('pattern')) {
+              <p class="text-red-500 text-sm mt-1">Decimal is not allowed</p>
+            }
+          }
+        </div>
+      </div>
+
+      <div class="flex gap-5">
+        <div class="flex-1">
+          <label class="block mb-2 font-medium">
+            Rental Company<span class="text-red-500">*</span></label
+          >
+
+          <select formControlName="rentalCompanyId" class="w-full border rounded-lg px-4 py-3">
+            <option value="" disabled>Select Company</option>
+
+            @for (company of rentalCompanyInput(); track $index) {
+              <option [value]="company.id">{{ company.companyName }}</option>
+            }
+          </select>
+          @if (
+            updateVehicleForm.get('rentalCompanyId')?.touched &&
+            updateVehicleForm.get('rentalCompanyId')?.invalid
+          ) {
+            @if (updateVehicleForm.get('rentalCompanyId')?.hasError('required')) {
+              <p class="text-red-500 text-sm mt-1">Rental Company is required</p>
+            }
+          }
+        </div>
+
+        <div class="flex-1">
+          <label class="block mb-2 font-medium">
+            vehicle Category<span class="text-red-500">*</span>
+          </label>
+
+          <select formControlName="vehicleCategoryId" class="w-full border rounded-lg px-4 py-3">
+            <option value="" disabled>Select Vehicle Category</option>
+
+            @for (category of vehicleCategoryInput(); track $index) {
+              <option [value]="category.id">{{ category.categoryName }}</option>
+            }
+          </select>
+          @if (
+            updateVehicleForm.get('vehicleCategoryId')?.touched &&
+            updateVehicleForm.get('vehicleCategoryId')?.invalid
+          ) {
+            @if (updateVehicleForm.get('vehicleCategoryId')?.hasError('required')) {
+              <p class="text-red-500 text-sm mt-1">Vehicle Category is required</p>
+            }
+          }
+        </div>
+      </div>
+
+      <div class="flex gap-5">
+        <div class="flex-1">
+          <label class="block mb-2 font-medium">
+            License Plate<span class="text-red-500">*</span>
+          </label>
+
+          <input
+            formControlName="licensePlate"
+            type="text"
+            class="w-full border rounded-lg px-4 py-3"
+          />
+          @if (
+            updateVehicleForm.get('licensePlate')?.touched &&
+            updateVehicleForm.get('licensePlate')?.invalid
+          ) {
+            @if (updateVehicleForm.get('licensePlate')?.hasError('required')) {
+              <p class="text-red-500 text-sm mt-1">License Plate is required</p>
+            } @else if (updateVehicleForm.get('licensePlate')?.hasError('maxlength')) {
+              <p class="text-red-500 text-sm mt-1">License Plate cannot exceed 20 char</p>
+            }
+          }
+        </div>
+        <div class="flex-1">
+          <label class="block mb-2 font-medium">
+            Registration Number<span class="text-red-500">*</span>
+          </label>
+
+          <input
+            formControlName="registrationNumber"
+            type="text"
+            class="w-full border rounded-lg px-4 py-3"
+          />
+          @if (
+            updateVehicleForm.get('registrationNumber')?.touched &&
+            updateVehicleForm.get('registrationNumber')?.invalid
+          ) {
+            @if (updateVehicleForm.get('registrationNumber')?.hasError('required')) {
+              <p class="text-red-500 text-sm mt-1">Registration Number is required</p>
+            } @else if (updateVehicleForm.get('registrationNumber')?.hasError('maxlength')) {
+              <p class="text-red-500 text-sm mt-1">Registration Number cannot exceed 50 char</p>
+            }
+          }
+        </div>
+      </div>
+
+      <div class="flex gap-5">
+        <div class="flex-1">
+          <label class="block mb-2 font-medium">
+            Daily Rental Rate<span class="text-red-500">*</span>
+          </label>
+
+          <input
+            formControlName="dailyRentalRate"
+            type="text"
+            class="w-full border rounded-lg px-4 py-3"
+          />
+          @if (
+            updateVehicleForm.get('dailyRentalRate')?.touched &&
+            updateVehicleForm.get('dailyRentalRate')?.invalid
+          ) {
+            @if (updateVehicleForm.get('dailyRentalRate')?.hasError('required')) {
+              <p class="text-red-500 text-sm mt-1">Daily Rental Rate is required</p>
+            } @else if (updateVehicleForm.get('dailyRentalRate')?.hasError('min')) {
+              <p class="text-red-500 text-sm mt-1">Daily Rental Rate should be greater than 0</p>
+            }
+          }
+        </div>
+
+        <div class="flex-1">
+          <label class="block mb-2 font-medium"> Mileage<span class="text-red-500">*</span> </label>
+
+          <input formControlName="mileage" type="text" class="w-full border rounded-lg px-4 py-3" />
+          @if (
+            updateVehicleForm.get('mileage')?.touched && updateVehicleForm.get('mileage')?.invalid
+          ) {
+            @if (updateVehicleForm.get('mileage')?.hasError('required')) {
+              <p class="text-red-500 text-sm mt-1">Mileage is required</p>
+            } @else if (updateVehicleForm.get('mileage')?.hasError('min')) {
+              <p class="text-red-500 text-sm mt-1">Mileage should be greater than 0</p>
+            }
+          }
+        </div>
+      </div>
+
+      <div class="flex gap-5">
+        <div class="flex-1">
+          <label class="block mb-2 font-medium">
+            Availablity<span class="text-red-500">*</span></label
+          >
+
+          <select
+            formControlName="vehicleAvailabilityStatus"
+            class="w-full border rounded-lg px-4 py-3"
+          >
+            <option value="" disabled>Select Status</option>
+
+            <option value="0">Available</option>
+            <option value="1">UnAvailable</option>
+            <option value="2">InMaintenance</option>
+            >
+          </select>
+          @if (
+            updateVehicleForm.get('vehicleAvailabilityStatus')?.touched &&
+            updateVehicleForm.get('vehicleAvailabilityStatus')?.invalid
+          ) {
+            @if (updateVehicleForm.get('vehicleAvailabilityStatus')?.hasError('required')) {
+              <p class="text-red-500 text-sm mt-1">Vehicle Availablity is required</p>
+            }
+          }
+        </div>
+
+        <div class="flex-1">
+          <label class="block mb-2 font-medium">
+            Year of Manufacture<span class="text-red-500">*</span>
+          </label>
+
+          <select formControlName="yearofManufacture" class="w-full border rounded-lg px-4 py-3">
+            <option value="" disabled>Select Year of Manufacture</option>
+
+            @for (year of years(); track $index) {
+              <option [value]="year">{{ year }}</option>
+            }
+          </select>
+          @if (
+            updateVehicleForm.get('yearofManufacture')?.touched &&
+            updateVehicleForm.get('yearofManufacture')?.invalid
+          ) {
+            @if (updateVehicleForm.get('yearofManufacture')?.hasError('required')) {
+              <p class="text-red-500 text-sm mt-1">Year of Manufacture is required</p>
+            }
+          }
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-3 pt-3">
+        <button
+          (click)="onClose()"
+          type="button"
+          class="px-5 py-2 border border-gray-300 rounded-lg hover:bg-gray-100"
+        >
+          Cancel
+        </button>
+
+        <button type="submit" class="px-5 py-2 bg-blue-700 text-white rounded-lg hover:bg-blue-800">
+          Save
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

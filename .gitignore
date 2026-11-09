@@ -1,0 +1,18 @@
+# Build outputs (.NET)
+bin/
+obj/
+
+# Visual Studio local files
+.vs/
+*.user
+
+# Dependencies & Build artifacts (Angular / Frontend)
+node_modules/
+dist/
+.angular/
+
+# Secrets & Configuration
+appsettings.json
+appsettings.Development.json
+appsettings.*.local.json
+!appsettings.example.json

@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/API/">
+    <Project Path="RentalManagementSystem.API/RentalManagementSystem.API.csproj" />
+  </Folder>
+  <Folder Name="/Application/">
+    <Project Path="RentalManagementSystem.Application/RentalManagementSystem.Application.csproj" />
+    <Project Path="RentalManagementSystem.Domain/RentalManagementSystem.Domain.csproj" />
+  </Folder>
+  <Folder Name="/Infrastructure/">
+    <Project Path="RentalmanagementSystem.Infrastructure/RentalmanagementSystem.Infrastructure.csproj" Id="7ab7052a-c04b-4f38-aec1-f19335fda841" />
+  </Folder>
+</Solution>

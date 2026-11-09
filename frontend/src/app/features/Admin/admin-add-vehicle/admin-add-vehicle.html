@@ -1,0 +1,260 @@
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+  <div class="bg-white rounded-2xl shadow-xl w-full max-w-3xl p-8">
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-2xl font-bold">Add Vehicle</h2>
+
+      <button (click)="onClose()" type="button" class="text-2xl font-bold hover:text-red-500">
+        ×
+      </button>
+    </div>
+
+    <form [formGroup]="addVehicleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-5">
+      <div class="flex gap-5">
+        <div class="flex-1">
+          <label class="block mb-2 font-medium">
+            Make and Model<span class="text-red-500">*</span>
+          </label>
+
+          <input
+            formControlName="makeAndModel"
+            type="text"
+            class="w-full border rounded-lg px-4 py-3"
+          />
+
+          @if (
+            addVehicleForm.get('makeAndModel')?.touched &&
+            addVehicleForm.get('makeAndModel')?.invalid
+          ) {
+            @if (addVehicleForm.get('makeAndModel')?.hasError('required')) {
+              <p class="text-red-500 text-sm mt-1">Make and Model is required</p>
+            } @else if (addVehicleForm.get('makeAndModel')?.hasError('maxlength')) {
+              <p class="text-red-500 text-sm mt-1">Make&Model cannot exceed 100 characters</p>
+            }
+          }
+        </div>
+
+        <div class="flex-1">
+          <label class="block mb-2 font-medium">
+            seating Capacity<span class="text-red-500">*</span></label
+          >
+
+          <input
+            type="number"
+            formControlName="seatingCapacity"
+            class="w-full border rounded-lg px-4 py-3"
+          />
+          @if (
+            addVehicleForm.get('seatingCapacity')?.touched &&
+            addVehicleForm.get('seatingCapacity')?.invalid
+          ) {
+            @if (addVehicleForm.get('seatingCapacity')?.hasError('required')) {
+              <p class="text-red-500 text-sm mt-1">seating capacity is required</p>
+            } @else if (addVehicleForm.get('seatingCapacity')?.hasError('max')) {
+              <p class="text-red-500 text-sm mt-1">seating capacity cannot exceed 20</p>
+            } @else if (addVehicleForm.get('seatingCapacity')?.hasError('min')) {
+              <p class="text-red-500 text-sm mt-1">seating capacity cannot be less than 1</p>
+            } @else if (addVehicleForm.get('seatingCapacity')?.hasError('pattern')) {
+              <p class="text-red-500 text-sm mt-1">Decimal is not allowed</p>
+            }
+          }
+        </div>
+      </div>
+
+      <div class="flex gap-5">
+        <div class="flex-1">
+          <label class="block mb-2 font-medium">
+            Rental Company<span class="text-red-500">*</span>
+          </label>
+
+          <select formControlName="rentalCompanyId" class="w-full border rounded-lg px-4 py-3">
+            <option value="" disabled>Select Company</option>
+
+            @for (company of rentalCompanyInput(); track $index) {
+              <option [value]="company.id">{{ company.companyName }}</option>
+            }
+          </select>
+          @if (
+            addVehicleForm.get('rentalCompanyId')?.touched &&
+            addVehicleForm.get('rentalCompanyId')?.invalid
+          ) {
+            @if (addVehicleForm.get('rentalCompanyId')?.hasError('required')) {
+              <p class="text-red-500 text-sm mt-1">Rental Company is required</p>
+            }
+          }
+        </div>
+
+        <div class="flex-1">
+          <label class="block mb-2 font-medium">
+            vehicle Category<span class="text-red-500">*</span>
+          </label>
+
+          <select formControlName="vehicleCategoryId" class="w-full border rounded-lg px-4 py-3">
+            <option value="" disabled>Select Vehicle Category</option>
+
+            @for (category of vehicleCategoryInput(); track $index) {
+              <option [value]="category.id">{{ category.categoryName }}</option>
+            }
+          </select>
+          @if (
+            addVehicleForm.get('vehicleCategoryId')?.touched &&
+            addVehicleForm.get('vehicleCategoryId')?.invalid
+          ) {
+            @if (addVehicleForm.get('vehicleCategoryId')?.hasError('required')) {
+              <p class="text-red-500 text-sm mt-1">Vehicle Category is required</p>
+            }
+          }
+        </div>
+      </div>
+
+      <div class="flex gap-5">
+        <div class="flex-1">
+          <label class="block mb-2 font-medium">
+            License Plate<span class="text-red-500">*</span>
+          </label>
+
+          <input
+            formControlName="licensePlate"
+            type="text"
+            class="w-full border rounded-lg px-4 py-3"
+          />
+          @if (
+            addVehicleForm.get('licensePlate')?.touched &&
+            addVehicleForm.get('licensePlate')?.invalid
+          ) {
+            @if (addVehicleForm.get('licensePlate')?.hasError('required')) {
+              <p class="text-red-500 text-sm mt-1">License Plate is required</p>
+            } @else if (addVehicleForm.get('licensePlate')?.hasError('maxlength')) {
+              <p class="text-red-500 text-sm mt-1">License Plate cannot exceed 20 char</p>
+            }
+          }
+        </div>
+        <div class="flex-1">
+          <label class="block mb-2 font-medium">
+            Registration Number<span class="text-red-500">*</span>
+          </label>
+
+          <input
+            formControlName="registrationNumber"
+            type="text"
+            class="w-full border rounded-lg px-4 py-3"
+          />
+          @if (
+            addVehicleForm.get('registrationNumber')?.touched &&
+            addVehicleForm.get('registrationNumber')?.invalid
+          ) {
+            @if (addVehicleForm.get('registrationNumber')?.hasError('required')) {
+              <p class="text-red-500 text-sm mt-1">Registration Number is required</p>
+            } @else if (addVehicleForm.get('registrationNumber')?.hasError('maxlength')) {
+              <p class="text-red-500 text-sm mt-1">Registration Number cannot exceed 50 char</p>
+            }
+          }
+        </div>
+      </div>
+
+      <div class="flex gap-5">
+        <div class="flex-1">
+          <label class="block mb-2 font-medium">
+            Daily Rental Rate<span class="text-red-500">*</span>
+          </label>
+
+          <input
+            formControlName="dailyRentalRate"
+            type="number"
+            class="w-full border rounded-lg px-4 py-3"
+          />
+          @if (
+            addVehicleForm.get('dailyRentalRate')?.touched &&
+            addVehicleForm.get('dailyRentalRate')?.invalid
+          ) {
+            @if (addVehicleForm.get('dailyRentalRate')?.hasError('required')) {
+              <p class="text-red-500 text-sm mt-1">Daily Rental Rate is required</p>
+            } @else if (addVehicleForm.get('dailyRentalRate')?.hasError('min')) {
+              <p class="text-red-500 text-sm mt-1">Daily Rental Rate should be greater than 0</p>
+            }
+          }
+        </div>
+
+        <div class="flex-1">
+          <label class="block mb-2 font-medium"> Mileage<span class="text-red-500">*</span> </label>
+
+          <input
+            formControlName="mileage"
+            type="number"
+            class="w-full border rounded-lg px-4 py-3"
+          />
+          @if (addVehicleForm.get('mileage')?.touched && addVehicleForm.get('mileage')?.invalid) {
+            @if (addVehicleForm.get('mileage')?.hasError('required')) {
+              <p class="text-red-500 text-sm mt-1">Mileage is required</p>
+            } @else if (addVehicleForm.get('mileage')?.hasError('min')) {
+              <p class="text-red-500 text-sm mt-1">Mileage should be greater than 0</p>
+            }
+          }
+        </div>
+      </div>
+
+      <div class="flex gap-5">
+        <div class="flex-1">
+          <label class="block mb-2 font-medium">
+            Availablity<span class="text-red-500">*</span></label
+          >
+
+          <select
+            formControlName="vehicleAvailabilityStatus"
+            class="w-full border rounded-lg px-4 py-3"
+          >
+            <option value="" disabled>Select Status</option>
+
+            <option value="0">Available</option>
+            <option value="1">UnAvailable</option>
+            <option value="2">InMaintenance</option>
+            >
+          </select>
+          @if (
+            addVehicleForm.get('vehicleAvailabilityStatus')?.touched &&
+            addVehicleForm.get('vehicleAvailabilityStatus')?.invalid
+          ) {
+            @if (addVehicleForm.get('vehicleAvailabilityStatus')?.hasError('required')) {
+              <p class="text-red-500 text-sm mt-1">Vehicle Availablity is required</p>
+            }
+          }
+        </div>
+
+        <div class="flex-1">
+          <label class="block mb-2 font-medium">
+            Year of Manufacture<span class="text-red-500">*</span>
+          </label>
+
+          <select formControlName="yearofManufacture" class="w-full border rounded-lg px-4 py-3">
+            <option value="" disabled>Select Year of Manufacture</option>
+
+            @for (year of years(); track $index) {
+              <option [value]="year">{{ year }}</option>
+            }
+          </select>
+          @if (
+            addVehicleForm.get('yearofManufacture')?.touched &&
+            addVehicleForm.get('yearofManufacture')?.invalid
+          ) {
+            @if (addVehicleForm.get('yearofManufacture')?.hasError('required')) {
+              <p class="text-red-500 text-sm mt-1">Year of Manufacture is required</p>
+            }
+          }
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-3 pt-3">
+        <button
+          (click)="onClose()"
+          type="button"
+          class="px-5 py-2 border border-gray-300 rounded-lg hover:bg-gray-100"
+        >
+          Cancel
+        </button>
+
+        <button type="submit" class="px-5 py-2 bg-blue-700 text-white rounded-lg hover:bg-blue-800">
+          Save
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
